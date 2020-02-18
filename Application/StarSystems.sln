@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.28917.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarSystems", "StarSystems\StarSystems.csproj", "{DB9CB953-88C3-4751-AAD1-256E2CA3665D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarSystems.Core", "StarSystems.Core\StarSystems.Core.csproj", "{77250DF1-EB36-4D3A-9F97-4E15E6C03F43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarSystems.Core", "StarSystems.Core\StarSystems.Core.csproj", "{77250DF1-EB36-4D3A-9F97-4E15E6C03F43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarSystems.Infrastructure", "StarSystems.Infrastructure\StarSystems.Infrastructure.csproj", "{B62B75DB-423B-4759-8B4C-60D6B071F487}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarSystems.Infrastructure", "StarSystems.Infrastructure\StarSystems.Infrastructure.csproj", "{B62B75DB-423B-4759-8B4C-60D6B071F487}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

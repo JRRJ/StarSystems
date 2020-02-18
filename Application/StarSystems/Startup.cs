@@ -3,8 +3,6 @@ using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -36,10 +34,6 @@ namespace StarSystems
 
             services.AddStarSystemsGraphQL();
 
-            services.AddSpaStaticFiles(configuration => {
-                configuration.RootPath = "StarSystemsClient/dist";
-            });
-
             // https://github.com/aspnet/AspNetCore/issues/8302
             services.Configure<IISServerOptions>(options =>
             {
@@ -56,7 +50,6 @@ namespace StarSystems
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
 
             app.UseGraphQL<ISchema>();
 
@@ -70,16 +63,6 @@ namespace StarSystems
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-            });
-
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "StarSystemsClient";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
             });
         }
     }
