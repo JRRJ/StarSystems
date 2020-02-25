@@ -6,16 +6,20 @@ exports.createPages = async ({ actions, graphql }) => {
       starSystems {
         starSystems {
           distance
+          x
+          y
+          z
           starSystemId
           systemName
-          star {
+          stars {
             starId
             spectralType
-            absoluteMagniude
+            absoluteMagnitude
             mass
             temperature
             luminosity
             starName
+            discoveryYear
             planets {
               id
               planetName
@@ -23,6 +27,7 @@ exports.createPages = async ({ actions, graphql }) => {
               radius
               temperature
               discoveryMethod
+              discoveryYear
               orbit {
                 period
                 semiMajorAxis
@@ -35,15 +40,15 @@ exports.createPages = async ({ actions, graphql }) => {
       }
     }
   `)
-  data.starSystems.starSystems.forEach(({ systemName, distance, star }) => {
+  data.starSystems.starSystems.forEach(({ systemName, distance, stars }) => {
     actions.createPage({
       path: `system/${systemName}`,
       component: path.resolve(`./src/components/starSystem.js`),
       context: {
         name: systemName,
         distance: distance,
-        stars: star,
-        starCount: star.length,
+        stars: stars,
+        starCount: stars.length,
       },
     })
   })

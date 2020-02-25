@@ -10,10 +10,10 @@ namespace StarSystems.Core.Models
         }
 
         public int OrbitId { get; set; }
-        public float SemiMajorAxis { get; set; }
-        public float Period { get; set; }
-        public float? Eccentricity { get; set; }
-        public float? Inclination { get; set; }
+        public double SemiMajorAxis { get; set; }
+        public double Period { get; set; }
+        public double? Eccentricity { get; set; }
+        public double? Inclination { get; set; }
 
         public ICollection<Planet> Planet { get; set; }
     }

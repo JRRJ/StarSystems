@@ -13,13 +13,14 @@ namespace StarSystems.GraphQL.Types
             Field(s => s.StarName, nullable: false).Description("Primary designation of this star");
             Field(s => s.SpectralType, nullable: false);
             Field(s => s.BvColorIndex, type: typeof(FloatGraphType));
-            Field(s => s.AbsoluteMagniude, type: typeof(FloatGraphType));
+            Field(s => s.AbsoluteMagnitude, type: typeof(FloatGraphType));
             Field(s => s.Mass, type: typeof(FloatGraphType));
             Field(s => s.Radius, type: typeof(FloatGraphType));
             Field(s => s.Luminosity, type: typeof(FloatGraphType));
             Field(s => s.Temperature, type: typeof(FloatGraphType));
             Field(s => s.Age, type: typeof(FloatGraphType));
             Field(s => s.Metallicity, type: typeof(FloatGraphType));
+            Field(s => s.DiscoveryYear, nullable: true, type: typeof(IntGraphType));
 
             Field<ListGraphType<PlanetType>, IEnumerable<Planet>>()
                 .Name("planets")

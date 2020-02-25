@@ -37,5 +37,23 @@ module.exports = {
         },
         `gatsby-plugin-offline`,
         `gatsby-plugin-theme-ui`,
+        {
+            resolve: `@gatsby-contrib/gatsby-plugin-elasticlunr-search`,
+            options: {
+              // Fields to index
+              fields: [`systemName`, `starNames`],
+              // How to resolve each field`s value for a supported node type
+              resolvers: {
+                // For any node of type MarkdownRemark, list how to resolve the fields` values
+                SitePage: {
+                  path: node => node.path,
+                  systemName: node => node.context.name,
+                  starNames: node => node.context.stars.map(s => s.starName)
+                },
+              },
+              filter: (node, getNode) => 
+                node.path.includes(`system/`)
+            },
+          },
     ],
 }

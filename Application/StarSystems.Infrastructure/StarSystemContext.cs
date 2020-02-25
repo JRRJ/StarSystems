@@ -62,9 +62,10 @@ namespace StarSystems.Infrastructure
                 entity.Property(e => e.Density).HasColumnName("density");
 
                 entity.Property(e => e.DiscoveryMethod)
-                    .IsRequired()
                     .HasColumnName("discovery_method")
                     .HasMaxLength(55);
+
+                entity.Property(e => e.DiscoveryYear).HasColumnName("discovery_year");
 
                 entity.Property(e => e.Gravity).HasColumnName("gravity");
 
@@ -102,11 +103,13 @@ namespace StarSystems.Infrastructure
                     .HasColumnName("star_id")
                     .UseNpgsqlIdentityAlwaysColumn();
 
-                entity.Property(e => e.AbsoluteMagniude).HasColumnName("absolute_magniude");
+                entity.Property(e => e.AbsoluteMagnitude).HasColumnName("absolute_magnitude");
 
                 entity.Property(e => e.Age).HasColumnName("age");
 
                 entity.Property(e => e.BvColorIndex).HasColumnName("bv_color_index");
+
+                entity.Property(e => e.DiscoveryYear).HasColumnName("discovery_year");
 
                 entity.Property(e => e.Luminosity).HasColumnName("luminosity");
 

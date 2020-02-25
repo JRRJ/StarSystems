@@ -14,13 +14,16 @@ namespace StarSystems.GraphQL.Types
             Field(ss => ss.RightAscension).Description("Right ascension in degrees.");
             Field(ss => ss.Declination).Description("Declination in degrees.");
             Field(ss => ss.Parallax);
-            Field(ss => ss.Distance).Description("Distance in light years.");
+            Field(ss => ss.Distance).Description("Distance in light-years.");
             Field<ListGraphType<StarType>, IEnumerable<Star>>()
-                .Name("Star")
-                .ResolveAsync(ctx =>
+                .Name("Stars")
+                .ResolveAsync(async ctx =>
                 {
-                    return starRepository.GetStarsByStarSystemIdAsync(ctx.Source.StarSystemId);
+                    return await starRepository.GetStarsByStarSystemIdAsync(ctx.Source.StarSystemId);
                 });
+            Field(ss => ss.X);
+            Field(ss => ss.Y);
+            Field(ss => ss.Z);
         }
     }
 }

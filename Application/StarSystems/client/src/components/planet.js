@@ -2,7 +2,6 @@ import React from "react"
 
 // @jsx jsx
 import { jsx } from 'theme-ui'
-import { estimateMassFromRadius, estimateRadiusFromMass } from "../util/astroUtil"
 
 const Planet = ({ planet }) => (
   <div>
@@ -15,19 +14,11 @@ const Planet = ({ planet }) => (
         gridGap: `0 20px`
       }}
     >
-      <strong>Mass:</strong>
-      {planet.mass ? (
-        <span>{planet.mass.toFixed(2)} M<sub>E</sub></span>
-      ) : (
-        <span>{estimateMassFromRadius(planet.radius).toFixed(2)} M<sub>E</sub> (estimated)</span>
-      )}
+      { planet.mass ? <strong>Mass:</strong> : ``}
+      { planet.mass ? <span>{planet.mass.toFixed(2)} M<sub>E</sub></span> : ``}
 
       <strong>Radius:</strong>
-      {planet.radius ? (
-        <span>{planet.radius.toFixed(2)} R<sub>E</sub></span>
-      ) : (
-        <span>{estimateRadiusFromMass(planet.mass).toFixed(2)} R<sub>E</sub> (estimated)</span>
-      )}
+      <span>{planet.radius.toFixed(2)} R<sub>E</sub></span>
 
       <strong>Temperature:</strong>
       <span>{planet.temperature} K</span>

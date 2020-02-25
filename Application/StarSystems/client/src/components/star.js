@@ -16,18 +16,18 @@ const Star = ({ star }) => (
         gridAutoRows: `1.75rem`,
         gridGap: `0 20px`
       }}
-    > 
+    >
       <strong>Spectral Classification:</strong>
       <span>{star.spectralType}</span>
 
-      <strong>Absolute Magniude:</strong>
-      <span>{star.absoluteMagnitude ? star.absoluteMagniude.toFixed(3) : `0.000`}</span>
+      <strong>Absolute Magnitude:</strong>
+      <span>{star.absoluteMagnitude ? star.absoluteMagnitude.toFixed(3) : `0.000`}</span>
 
       <strong>Mass:</strong>
       <span>{star.mass ? star.mass.toFixed(3) : `?`} M<sub>Sun</sub></span>
 
       <strong>Luminosity:</strong>
-      <span>{star.luminosity.toFixed(3)} L<sub>Sun</sub></span>
+      <span>{star.luminosity ? star.luminosity.toFixed(3) : ``} L<sub>Sun</sub></span>
 
       <strong>Temperature:</strong>
       <span>{star.temperature} K</span>
