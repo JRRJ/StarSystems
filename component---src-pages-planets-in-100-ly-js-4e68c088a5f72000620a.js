@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[6],{m9EW:function(e,t,n){"use strict";n.r(t),n.d(t,"query",(function(){return m}));var a=n("q1tI"),r=n.n(a),s=n("Wbzz");t.default=function(e){var t=e.data;return r.a.createElement("div",null,r.a.createElement("h2",null,"System List"),t.starSystems.starSystems.map((function(e){var t=e.systemName,n=e.starSystemId;return r.a.createElement("div",{key:n},r.a.createElement(s.Link,{to:"/system/"+t},t))})))};var m="3255147523"}}]);
-//# sourceMappingURL=component---src-pages-planets-in-100-ly-js-4e68c088a5f72000620a.js.map
