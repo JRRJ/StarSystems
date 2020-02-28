@@ -28,7 +28,7 @@ namespace StarSystems.GraphQL.Types
 
             Field<StarSystemType, StarSystem>()
                 .Name("starSystem")
-                .ResolveAsync(context => starSystemRepository.GetStarSystemAsync(context.Source.StarSystemId));
+                .ResolveAsync(context => starSystemRepository.GetStarSystemAsync(context.Source.StarSystemId)!);
         }
     }
 }

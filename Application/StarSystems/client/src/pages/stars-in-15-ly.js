@@ -9,25 +9,25 @@ import StarSystemsScene from "../scenes/StarSystemsScene"
 
 export default ({ data }) => (
     <Layout>
-        <div sx={{
-            border: `1px solid black`
-        }}>
-            3d map placeholder
-            <SceneComponent scene={StarSystemsScene(data.starSystems)} />
-        </div>
+
+        <SceneComponent scene={StarSystemsScene(data.starSystems)} />
+
         <h2>System List</h2>
-        {data.starSystems.starSystems.map(({ systemName, starSystemId }) => (
-            <div key={starSystemId}>
+        <ol>
+        {data.starSystems.starSystems.map(({ stars, systemName, starSystemId }) => (
+            <li key={starSystemId}>
                 <Link to={`/system/${systemName}`}>{systemName}</Link>
-            </div>
+                - Stars: {stars.length} - Planets: {stars.reduce((totalPlanets, star) => totalPlanets + star.planets.length ,0)}
+            </li>
         ))}
+        </ol>
     </Layout>
 )
-    
+
 export const query = graphql`
     query {
         starSystems {
-            starSystems {
+            starSystems(withinLightYearsOfEarth: 15) {
                 systemName
                 starSystemId
                 x
@@ -37,6 +37,9 @@ export const query = graphql`
                     starId
                     radius
                     temperature
+                    planets {
+                        id
+                    }
                 }
             }
         }

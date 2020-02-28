@@ -1,20 +1,29 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useColorMode } from 'theme-ui'
 import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
-// import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-// import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-// import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
 import DefaultScene from "../scenes/defaultScene"
+
+// @jsx jsx
+import { jsx } from 'theme-ui'
+import { navigate } from "gatsby"
 
 const SceneComponent = props => {
   const [ colorMode ] = useColorMode()
 
   let canvas = React.createRef()
-  let controls
-  let camera
+  let label = React.createRef()
   let renderer
   let scene
+  let camera
+  let controls
+  let raycaster
+
+  let mouse = new THREE.Vector2()
+  let labelPosition = new THREE.Vector2()
+
+  let focusObject
+  let running = false
 
   useEffect(() => {
     setupRenderer()
@@ -22,11 +31,21 @@ const SceneComponent = props => {
     setupCamera()
     setupControls()
     setupLights()
-    //setupPostprocessing()
     buildScene()
-      .then(() => {
-        animate()
-      })
+    running = true
+    animate()
+
+    return () => {
+      running = false
+      renderer = null
+      scene = null
+      camera = null
+      controls = null
+      raycaster = null
+      mouse = null
+      labelPosition = null
+      focusObject = null
+    }
   }, [colorMode])
 
   const setupCamera = () => {
@@ -63,13 +82,11 @@ const SceneComponent = props => {
   }
 
   const buildScene = () => {
-    return new Promise((resolve) => {
+      raycaster = new THREE.Raycaster()
       const sceneToBuild = props.scene ?? DefaultScene()
       sceneToBuild.meshes.forEach(mesh => {
         scene.add(mesh)
-      });
-      resolve()
-    })
+      })
   }
 
   const setupLights = () => {
@@ -77,14 +94,56 @@ const SceneComponent = props => {
 
   const animate = () => {
     // Start loop again
-    requestAnimationFrame(animate)
-    
-    renderer.render(scene, camera)
+    if (running) {
+      requestAnimationFrame(animate)
+
+      raycaster.setFromCamera(mouse, camera)
+      let intersects = raycaster.intersectObjects(scene.children)
+      if (intersects.length > 0) {
+        if (intersects[0].object.name !== focusObject) {
+          console.log(focusObject, intersects[0].object.name)
+          focusObject = intersects[0].object.name
+          label.current.innerHTML = focusObject
+          label.current.style.top = `${labelPosition.y - 30}px`
+          label.current.style.left = `${labelPosition.x}px`
+        }
+      } else if (focusObject !== null) {
+        focusObject = null
+        label.current.innerHTML = ``
+      }
+  
+      renderer.render(scene, camera)
+    }
+  }
+
+  const handleOnMouseMove = event => {
+    const rect = canvas.current.getBoundingClientRect()
+
+    labelPosition.x = event.pageX
+    labelPosition.y = event.pageY
+
+    mouse.x = ( (event.clientX - rect.left) / rect.width ) * 2 - 1
+    mouse.y = - ( (event.clientY - rect.top) / rect.height ) * 2 + 1
+  }
+
+  const handleOnMouseClick = event => {
+    console.log(`/system/${focusObject}`)
+    event.preventDefault()
+    if (focusObject) {
+      console.log(`/system/${focusObject}`)
+      navigate(`/system/${focusObject}`)
+    }
   }
 
   return (
-    <div className="three-container">
-      <canvas id="three-canvas" ref={canvas} />
+    <div className="three-container" onMouseMove={handleOnMouseMove}>
+      <canvas id="three-canvas" ref={canvas} onMouseUp={handleOnMouseClick} />
+      <div
+        sx={{
+          position: `absolute`
+        }}
+        ref={label}>
+      </div>
     </div>
   )
 }

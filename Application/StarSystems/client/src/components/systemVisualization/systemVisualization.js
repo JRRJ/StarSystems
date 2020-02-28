@@ -5,20 +5,20 @@ import { jsx } from "theme-ui"
 import OrbitVisualization from "./orbitVisualization"
 import PlanetSizeVisualization from "./planetSizeVisualization"
 
-const SystemVisualization = ({ stars }) => (
+const SystemVisualization = ({ star }) => (
   <div sx={{
     display: "grid",
-    gridTemplateColumns: "700px 200px",
-    gridTemplateRows: stars.map(_ => "200px").join(" "),
-    gridAutoFlow: "column",
-    gridGap: 10
+    gridTemplateColumns: "900px",
+    gridGap: 10,
   }}>
-    {stars.map(star =>
-      <PlanetSizeVisualization key={star.starId} star={star} />
-    )}
-    {stars.map(star =>
-      <OrbitVisualization key={star.starId} star={star} />
-    )}
+    <span>
+      Star and Planet Sizes (Star color is actual, planet colors indicate relative warmth)
+    </span>
+    <PlanetSizeVisualization star={star} />
+    <span>
+      Planet Orbits (Green band represents habitable zone)
+    </span>
+    <OrbitVisualization star={star} />
   </div>
 )
 

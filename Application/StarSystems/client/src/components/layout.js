@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
       <div
         sx={{
           margin: `0 auto`,
-          maxWidth: 960,
+          maxWidth: 900,
           padding: `0 5`
         }}
       >
@@ -37,19 +37,26 @@ const Layout = ({ children }) => {
               display: `grid`,
               gridAutoFlow: `column`,
               li: {
-                display: `inline`
-              }
+                display: `inline`,
+                fontSize: 3
+              },
             }}
           >
-            <li><Link to="/stars-in-10-ly/">Star Systems: 10ly</Link></li>
-            <li><Link to="/planets-in-100-ly/">Planets: 100ly</Link></li>
+            <li><Link to="/stars-in-15-ly/">All Star Systems - 15ly</Link></li>
+            <li><Link to="/planets-in-50-ly/">Stars With Planets - 50ly</Link></li>
             <li><Link to="/search">Search Systems</Link></li>
             <li>
-              <button
-                onClick={e => {setColorMode(colorMode === 'default' ? 'dark' : 'default')
-              }}>
-                {colorMode === 'default' ? 'Light' : 'Dark'}
-              </button>
+              <span
+                onClick={e => {setColorMode(colorMode === 'default' ? 'dark' : 'default')}}
+                sx={{
+                  border: `3px solid #777`,
+                  borderRadius: 2,
+                  padding: 1,
+                  cursor: `pointer`
+                }}
+              >
+                {colorMode === 'default' ? 'Light Theme' : 'Dark Theme'}
+              </span>
             </li>
           </ul>
         </nav>

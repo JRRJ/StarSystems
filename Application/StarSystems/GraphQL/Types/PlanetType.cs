@@ -2,6 +2,8 @@
 using StarSystems.Core;
 using StarSystems.Core.Models;
 using StarSystems.Infrastructure.Interfaces;
+using System;
+using System.Threading.Tasks;
 
 namespace StarSystems.GraphQL.Types
 {
@@ -24,7 +26,22 @@ namespace StarSystems.GraphQL.Types
                 });
             Field(s => s.Density, type: typeof(FloatGraphType));
             Field(s => s.Gravity, type: typeof(FloatGraphType));
-            Field(s => s.Temperature, type: typeof(FloatGraphType));
+            Field<IntGraphType>()
+                .Name("temperature")
+                .Resolve(context =>
+                {
+                    if (context.Source.Temperature != null)
+                    {
+                        return context.Source.Temperature;
+                    }
+
+                    var star = context.Source.Star;
+                    if (star!.Luminosity != null)
+                    {
+                        return (int)(252 * Math.Pow(star.Luminosity.GetValueOrDefault() / Math.Pow(context.Source.Orbit.SemiMajorAxis, 2), 0.25));
+                    }
+                    return null;
+                });
             Field(s => s.AtmosphericPressure, type: typeof(FloatGraphType));
             Field(s => s.DiscoveryMethod, nullable: true);
             Field(s => s.DiscoveryYear, nullable: true, type: typeof(IntGraphType));

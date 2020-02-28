@@ -28,6 +28,7 @@ namespace StarSystems.Infrastructure.Repositories
             return await _context.Planet
                 .Include(ss => ss.Orbit)
                 .Where(s => s.StarId == starId)
+                .OrderBy(p => p.Orbit.SemiMajorAxis)
                 .ToListAsync();
         }
 

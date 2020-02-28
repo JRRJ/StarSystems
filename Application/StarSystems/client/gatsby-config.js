@@ -1,4 +1,5 @@
 module.exports = {
+    pathPrefix: `/StarSystems`,
     siteMetadata: {
         title: `Near Stars`,
         description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
@@ -18,11 +19,11 @@ module.exports = {
         {
             resolve: `gatsby-plugin-manifest`,
             options: {
-                name: `gatsby-starter-default`,
-                short_name: `starter`,
+                name: `near-stars`,
+                short_name: `nearstars`,
                 start_url: `/`,
-                background_color: `#663399`,
-                theme_color: `#663399`,
+                background_color: `#013`,
+                theme_color: `#013`,
                 display: `minimal-ui`,
                 icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
             },
@@ -44,7 +45,6 @@ module.exports = {
               fields: [`systemName`, `starNames`],
               // How to resolve each field`s value for a supported node type
               resolvers: {
-                // For any node of type MarkdownRemark, list how to resolve the fields` values
                 SitePage: {
                   path: node => node.path,
                   systemName: node => node.context.name,
